@@ -1,0 +1,104 @@
+/* This is the acutal one TODO merge with the one in src/app */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0047ab;
+  --secondary: #00c2cb;
+  --dark: #121212;
+  --light: #f8f9fa;
+  --gray: #52525a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply text-dark bg-light antialiased;
+  }
+}
+
+@layer components {
+  .bg-mesh-gradient {
+    background: linear-gradient(125deg, var(--primary) 0%, var(--secondary) 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .feature-card {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .custom-input {
+    @apply rounded-lg border border-gray-200 px-4 py-2 focus:border-primary/70 focus:ring-2 focus:ring-primary/20 focus:outline-none;
+  }
+
+  .nav-link {
+    @apply text-gray-600 hover:text-primary transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90 px-6 py-2 rounded-full font-medium transition-all;
+  }
+
+  .btn-secondary {
+    @apply bg-white/10 backdrop-blur-sm hover:bg-white/30 px-6 py-2 rounded-full font-medium transition-all;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray);
+  border-radius: 5px;
+}
+
+{/*::-webkit-scrollbar-thumb:hover {
+  background: #003d91;
+}*/}
+
+/* Loading animations */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #f7f7f7 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
