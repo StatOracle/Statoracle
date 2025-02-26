@@ -1,0 +1,35 @@
+# .github/workflows/vercel-merge.yml
+name: Deploy to Vercel on Merge
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: # this block for Dependabot
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4 # Add this to install node and pnpm
+        with:
+          node-version: '18' # Or your preferred Node.js version
+          cache: 'pnpm'
+      - name: Install dependencies # Add this to install dependencies
+        run: pnpm install
+      - name: Build # Add this to build the project
+        run: pnpm build
+      - name: Run tests # Add this to run tests
+        run: pnpm test
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: "--prod"
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          scope: ${{ secrets.ORG_ID }}
