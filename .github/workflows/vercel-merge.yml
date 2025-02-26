@@ -13,17 +13,25 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4 # Add this to install node and pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: '18' # Or your preferred Node.js version
-          cache: 'pnpm'
-      - name: Install dependencies # Add this to install dependencies
+          version: 10
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
         run: pnpm install
-      - name: Build # Add this to build the project
+      - name: Build
         run: pnpm build
-      - name: Run tests # Add this to run tests
+      - name: Run tests
         run: pnpm test
       - uses: amondnet/vercel-action@v25
         with:
