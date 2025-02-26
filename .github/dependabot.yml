@@ -1,12 +1,12 @@
 # .github/dependabot.yml
 ---
-version: 2
+version: 8
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pnpm"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -16,7 +16,3 @@ updates:
         versions: [">=20.0.0"] # Ignore React 20 and above
       - dependency-name: "next"
         versions: [">=16.0.0"] # Ignore Next.js 16 and above
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
