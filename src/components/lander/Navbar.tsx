@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -15,12 +16,12 @@ export default function Navbar() {
 
   const underlineVariants = {
     hidden: { scaleX: 0, opacity: 0 },
-    visible: { 
+    visible: {
       scaleX: 1,
       opacity: 1,
       transition: { duration: 0.3, ease: "easeInOut" }
     },
-    exit: { 
+    exit: {
       scaleX: 0,
       opacity: 0,
       transition: { duration: 0.2, ease: "easeIn" }
@@ -28,7 +29,7 @@ export default function Navbar() {
   }
 
   return (
-    <motion.nav 
+    <motion.nav
       className="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -36,13 +37,14 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 py-5">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link 
-            href="/" 
-            className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent"
-          >
+
+        {/* Logo */}
+        <Link href="/" className="flex items-center space-x-2">
+          <Image src="/statoraclelogo.webp" alt="StatOracle Logo" width={40} height={40} />
+          <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
             StatOracle
-          </Link>
+          </span>
+        </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -128,4 +130,3 @@ export default function Navbar() {
     </motion.nav>
   )
 }
-

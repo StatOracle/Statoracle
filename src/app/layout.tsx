@@ -2,8 +2,7 @@ import type React from "react"
 import "./globals.css"
 import { Inter, Manrope } from "next/font/google"
 import type { Metadata } from "next"
-import { Analytics } from "@/components/lander/Analytics"
-import { Providers } from "@/components/Providers"
+import { Providers } from "@/app/Providers"
 import { ReactLenis } from "@/utils/lenis";
 
 const inter = Inter({
@@ -78,7 +77,7 @@ export default function RootLayout({
       <ReactLenis root>
         <body className="bg-light font-sans text-dark">
           <Providers>{children}</Providers>
-          <Analytics />
+          {/* <Analytics /> */}
         </body>
       </ReactLenis>
     </html>
