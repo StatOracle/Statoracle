@@ -31,8 +31,7 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
-      - name: Run tests
-        run: pnpm test
+      # TODO: run tests if we decide to add any in the future
       - uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
