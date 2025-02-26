@@ -72,6 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`scroll-smooth ${inter.variable} ${manrope.variable}`}
     >
       <ReactLenis root>
@@ -83,4 +84,3 @@ export default function RootLayout({
     </html>
   );
 }
-
