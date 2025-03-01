@@ -30,7 +30,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100"
+      className="fixed w-full top-0 z-50 bg-black/70 backdrop-blur-md border-b border-gray-100"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -40,8 +40,8 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <Image src="/statoraclelogo.webp" alt="StatOracle Logo" width={40} height={40} />
-          <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+          <Image src="/statoraclelogo.webp" alt="StatOracle Logo" width={30} height={30} className="rounded-md" />
+          <span className="text-xl font-bold bg-gradient-to-r from-yellow-500 to-amber-300 bg-clip-text text-transparent">
             StatOracle
           </span>
         </Link>
@@ -52,7 +52,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative px-3 py-2 text-gray-500 hover:text-gray-800 transition-colors"
+                className="relative px-3 py-2 text-gray-500 hover:text-amber-300 transition-colors"
                 onMouseEnter={() => setHoveredLink(item.name)}
                 onMouseLeave={() => setHoveredLink(null)}
               >
@@ -60,7 +60,7 @@ export default function Navbar() {
                 <AnimatePresence>
                   {hoveredLink === item.name && (
                     <motion.div
-                      className="absolute bottom-1 left-0 right-0 h-[1px] bg-gray-400 origin-center"
+                      className="absolute bottom-1 left-0 right-0 h-[1px] bg-gray-700 origin-center"
                       variants={underlineVariants}
                       initial="hidden"
                       animate="visible"

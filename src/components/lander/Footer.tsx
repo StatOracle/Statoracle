@@ -98,7 +98,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-gray-50 border-t">
+      <footer className="bg-black border-t">
         <div className="max-w-7xl mx-auto px-6 py-12 md:py-24">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
             {footerSections.map((section) => (
@@ -108,11 +108,11 @@ export default function Footer() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <h3 className="font-bold mb-4">{section.title}</h3>
+                <h3 className="font-bold mb-4 text-white ">{section.title}</h3>
                 <ul className="space-y-2">
                   {section.links.map((link) => (
                     <li key={link.label}>
-                      <Link href={link.href} className="text-gray-600 hover:text-primary transition-colors text-sm">
+                      <Link href={link.href} className="text-white hover:text-yellow-500 transition-colors text-sm">
                         {link.label}
                       </Link>
                     </li>
@@ -124,9 +124,9 @@ export default function Footer() {
 
           <div className="mt-12 pt-8 border-t">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="flex items-center space-x-4">
-                <Image src="/statoraclelogo.webp" alt="StatOracle Logo" width={40} height={40} />
-                <Link href="/" className="text-2xl font-bold">
+              <div className="flex items-center space-x-4 ">
+                <Image src="/statoraclelogo.webp" className="rounded-xl shadow-sm shadow-yellow-500" alt="StatOracle Logo" width={30} height={30} />
+                <Link href="/" className="text-xl text-yellow-500 font-bold">
                   StatOracle
                 </Link>
                 <span className="text-sm text-gray-600">© {currentYear} StatOracle. All rights reserved.</span>
@@ -136,7 +136,7 @@ export default function Footer() {
                   <button
                     key={link.label}
                     onClick={(e) => handleExternalLinkClick(e, link.href)}
-                    className="text-gray-600 hover:text-primary"
+                    className="text-yellow-500/80 hover:text-yellow-500"
                   >
                     <span className="sr-only">{link.label}</span>
                     {link.icon}
