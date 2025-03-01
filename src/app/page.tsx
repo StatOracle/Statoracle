@@ -13,7 +13,7 @@ export default function Page() {
     <>
       <Navbar />
       <main className="overflow-hidden">
-        <section className="min-h-screen flex items-center justify-center bg-mesh-gradient text-white relative overflow-hidden">
+        <section className="min-h-screen flex items-center justify-center bg-black text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/grid-overlay.png')] bg-cover opacity-10 mix-blend-overlay"></div>
 
           <div className="max-w-7xl mx-auto px-6 py-32 relative z-10">
@@ -28,7 +28,7 @@ export default function Page() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
+                  className="inline-flex items-center gap-2 px-4 py-2 hover:scale-125 cursor-pointer rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
                 >
                   <span className="text-sm font-medium">🚀 Now in Beta</span>
                 </motion.div>
@@ -40,7 +40,7 @@ export default function Page() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
                   AI-Powered Sports Analytics for{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200">
                     Youth Teams
                   </span>
                 </motion.h1>
@@ -63,7 +63,7 @@ export default function Page() {
                 >
                   <Link
                     href="#waitlist"
-                    className="inline-flex items-center justify-center px-8 py-3 rounded-full  text-primary font-medium backdrop-blur-sm bg-white/20 hover:bg-white/40 transition-all"
+                    className="inline-flex items-center justify-center px-8 py-3 rounded-full  text-yellow-500 font-medium backdrop-blur-sm bg-white/15 hover:bg-white/40 transition-all"
                   >
                     Join the Waitlist
                   </Link>
@@ -83,7 +83,7 @@ export default function Page() {
                 >
                   <div className="flex -space-x-2">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-primary" />
+                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-yellow-300" />
                     ))}
                   </div>
                   <p className="text-white/80">
@@ -98,14 +98,8 @@ export default function Page() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="relative"
               >
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden glass-card">
-                  <Image
-                    src="/dashboard-preview.jpg"
-                    alt="StatOracle Dashboard"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+                <div className="relative aspect-[4/3] rounded-xl  bg-black overflow-hidden glass-card">
+                {/* TODO Replace with Dashboard Image */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
 

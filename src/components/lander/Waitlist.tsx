@@ -34,7 +34,7 @@ export default function Waitlist() {
     { value: "24/7", label: "Support" },
   ]
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     toast({
@@ -44,7 +44,7 @@ export default function Waitlist() {
   }
 
   return (
-    <section id="waitlist" className="py-24 md:py-32 bg-mesh-gradient text-white relative overflow-hidden">
+    <section id="waitlist" className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/grid-overlay.png')] bg-cover opacity-10 mix-blend-overlay"></div>
 
       <motion.div
@@ -62,7 +62,7 @@ export default function Waitlist() {
             <span className="text-sm font-medium">Join the Future 🚀</span>
           </motion.div>
 
-          <motion.h2 variants={item} className="text-4xl md:text-5xl font-display font-bold mb-4">
+          <motion.h2 variants={item} className="text-4xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200 md:text-5xl font-display font-bold mb-4">
             Be Among the First to Experience
           </motion.h2>
 
@@ -80,7 +80,7 @@ export default function Waitlist() {
               />
               <button
                 type="submit"
-                className="px-8 py-4 rounded-full backdrop-blur-sm bg-white/20 hover:bg-white/40 text-primary font-bold transition-all"
+                className="px-8 py-4 rounded-full backdrop-blur-sm bg-white/20 hover:bg-white/40 text-yellow-500 font-bold transition-all"
               >
                 Join Waitlist
               </button>

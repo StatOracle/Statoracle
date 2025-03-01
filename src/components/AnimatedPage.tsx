@@ -13,7 +13,7 @@ export default function AnimatedPage() {
     <>
       <Navbar />
       <main className="overflow-hidden">
-        <section className="min-h-screen flex items-center justify-center bg-mesh-gradient text-white relative overflow-hidden">
+        <section className="min-h-screen flex items-center bg-black justify-center bg-mesh-gradient text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/grid-overlay.png')] bg-cover opacity-10 mix-blend-overlay"></div>
 
           <div className="max-w-7xl mx-auto px-6 py-32 relative z-10">
@@ -40,7 +40,7 @@ export default function AnimatedPage() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
                   AI-Powered Sports Analytics for{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-amber-200">
                     Youth Teams
                   </span>
                 </motion.h1>

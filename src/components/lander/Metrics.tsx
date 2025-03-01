@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -113,7 +113,7 @@ export default function Metrics() {
   }
 
   return (
-    <section id="metrics" className="py-24 md:py-32 bg-white">
+    <section id="metrics" className="py-24 md:py-32 bg-black">
       <motion.div
         className="max-w-7xl mx-auto px-6"
         initial="hidden"
@@ -122,8 +122,8 @@ export default function Metrics() {
         variants={container}
       >
         <motion.div variants={item} className="text-center mb-16">
-          <div className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">Performance Metrics</div>
-          <h2 className="text-4xl font-display font-bold mb-4">Data-Driven Insights</h2>
+          <div className="inline-block px-4 py-2 rounded-full bg-yellow-300/10 text-white mb-4">Performance Metrics</div>
+          <h2 className="text-4xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200 font-display font-bold mb-4">Data-Driven Insights</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover how our AI-powered analytics transform raw data into actionable insights.
           </p>
@@ -138,18 +138,18 @@ export default function Metrics() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`relative px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                   activeTab === tab.id 
-                    ? "text-white" 
+                    ? "text-black" 
                     : "text-gray-700 hover:text-gray-900 dark:text-gray-300"
                 }`}
               >
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 bg-primary rounded-full"
+                    className="absolute inset-0 bg-yellow-500 rounded-full"
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
                   />
                 )}
-                <span className="relative z-10">{tab.label}</span>
+                <span className="relative z-10 text-black">{tab.label}</span>
               </button>
             ))}
           </div>
@@ -169,14 +169,14 @@ export default function Metrics() {
                 key={index}
                 variants={item}
                 whileHover={{ y: -5 }}
-                className="bg-white rounded-xl shadow-lg p-6 transition-shadow hover:shadow-xl"
+                className="bg-black border border-white rounded-xl shadow-lg p-6 transition-shadow hover:shadow-xl"
               >
                 <div className="flex items-center space-x-3 mb-4">
                   <span className="text-2xl">{metric.icon}</span>
-                  <h3 className="text-xl font-bold">{metric.title}</h3>
+                  <h3 className="text-xl font-bold text-white">{metric.title}</h3>
                 </div>
 
-                <p className="text-gray-600 mb-6">{metric.description}</p>
+                <p className="text-gray-400 mb-6">{metric.description}</p>
 
                 {metric.data && (
                   <div className="space-y-4">
@@ -188,12 +188,12 @@ export default function Metrics() {
                         transition={{ delay: idx * 0.1 }}
                       >
                         <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium">{item.label}</span>
-                          <span className="text-sm text-primary font-medium">{item.value}</span>
+                          <span className="text-sm font-medium ">{item.label}</span>
+                          <span className="text-sm text-yellow-500 font-medium">{item.value}</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                           <motion.div
-                            className="bg-primary h-2 rounded-full"
+                            className="bg-yellow-500 h-2 rounded-full"
                             initial={{ width: 0 }}
                             animate={{ width: `${item.progress}%` }}
                             transition={{ 
@@ -251,9 +251,9 @@ export default function Metrics() {
                   >
                     <div className="flex items-center space-x-2 text-primary mb-1">
                       <span className="text-sm">💡</span>
-                      <span className="font-medium text-sm">Key Insight</span>
+                      <span className="font-medium text-sm text-yellow-500">Key Insight</span>
                     </div>
-                    <p className="text-sm text-gray-700">{metric.insight}</p>
+                    <p className="text-sm text-white">{metric.insight}</p>
                   </motion.div>
                 )}
               </motion.div>
