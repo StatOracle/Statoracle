@@ -83,7 +83,7 @@ export default function Page() {
                 >
                   <div className="flex -space-x-2">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-yellow-300" />
+                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-primary" />
                     ))}
                   </div>
                   <p className="text-white/80">
