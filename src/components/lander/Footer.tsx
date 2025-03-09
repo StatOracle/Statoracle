@@ -125,10 +125,6 @@ export default function Footer() {
           <div className="mt-12 pt-8 border-t">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="flex items-center space-x-4 ">
-                <Image src="/statoraclelogo.webp" className="rounded-xl shadow-sm shadow-yellow-500" alt="StatOracle Logo" width={30} height={30} />
-                <Link href="/" className="text-xl text-yellow-500 font-bold">
-                  StatOracle
-                </Link>
                 <span className="text-sm text-gray-600">© {currentYear} StatOracle. All rights reserved.</span>
               </div>
               <div className="flex space-x-6">

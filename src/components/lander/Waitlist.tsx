@@ -1,10 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useToast } from "@/lib/hooks/use-toast";
+import { useToast } from "@/lib/hooks/use-toast"
+import { supabase } from "@/lib/supabaseClient"
+import { useState } from "react"
 
 export default function Waitlist() {
   const { toast } = useToast()
+  const [email, setEmail] = useState("")
 
   const container = {
     hidden: { opacity: 0 },
@@ -36,11 +39,24 @@ export default function Waitlist() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log("Submitting email:", email)
 
-    toast({
-      title: "Success! 🎉",
-      description: "Thanks for joining the waitlist. We'll be in touch soon!",
-    })
+    const { error } = await supabase
+      .from('waitlist')
+      .insert({ email: email }) 
+
+    if (error) {
+      console.error("Supabase error:", error)
+      toast({
+        title: "Error",
+        description: `There was an error joining the waitlist: ${error.message}`,
+      })
+    } else {
+      toast({
+        title: "Success! 🎉",
+        description: "Thanks for joining the waitlist. We'll be in touch soon!",
+      })
+    }
   }
 
   return (
@@ -77,6 +93,8 @@ export default function Waitlist() {
                 placeholder="Enter your email"
                 className="flex-1 px-6 py-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <button
                 type="submit"
@@ -107,4 +125,3 @@ export default function Waitlist() {
     </section>
   )
 }
-
