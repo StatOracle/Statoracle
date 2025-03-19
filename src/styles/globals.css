@@ -1,8 +1,5 @@
-/* This is the acutal one TODO merge with the one in src/app DONE*/
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@layer theme, base, components, utilities;
 
 :root {
   --primary: #000;
@@ -140,10 +137,6 @@
   background: var(--gray);
   border-radius: 5px;
 }
-
-{/*::-webkit-scrollbar-thumb:hover {
-  background: #003d91;
-}*/}
 
 /* Loading animations */
 .loading-shimmer {

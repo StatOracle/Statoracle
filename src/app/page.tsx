@@ -5,7 +5,7 @@ import Navbar from "@/components/lander/Navbar"
 import Metrics from "@/components/lander/Metrics"
 import Waitlist from "@/components/lander/Waitlist"
 import Footer from "@/components/lander/Footer"
-import Image from "next/image"
+// import Image from "next/image"
 import Link from "next/link"
 
 export default function Page() {
