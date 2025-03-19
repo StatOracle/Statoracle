@@ -30,13 +30,6 @@ export default function Waitlist() {
     },
   }
 
-  const stats = [
-    { value: "500+", label: "Teams on Waitlist" },
-    { value: "15+", label: "Sports Supported" },
-    { value: "98%", label: "Accuracy Rate" },
-    { value: "24/7", label: "Support" },
-  ]
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Submitting email:", email)
@@ -60,7 +53,7 @@ export default function Waitlist() {
   }
 
   return (
-    <section id="waitlist" className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
+    <section id="waitlist" className="py-16 md:py-16 bg-black text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/grid-overlay.png')] bg-cover opacity-10 mix-blend-overlay"></div>
 
       <motion.div
@@ -104,22 +97,6 @@ export default function Waitlist() {
               </button>
             </div>
           </motion.form>
-
-          <motion.div variants={container} className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {stats.map((stat, index) => (
-              <motion.div key={index} variants={item} whileHover={{ y: -5 }} className="p-6 glass-card rounded-xl">
-                <motion.div
-                  className="text-3xl font-bold mb-2"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-sm text-white/80">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
       </motion.div>
     </section>

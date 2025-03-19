@@ -2,7 +2,7 @@
 <p align="center">
   <strong>AI-Powered Sports Analytics for Youth Teams</strong><br>
   Unlock elite-level insights with cutting-edge <b>YOLOv8-powered computer vision</b> and <b>data-driven intelligence</b>—all tailored for youth sports teams and organizations.<br>
-  <a href="https://statoracle.vercel.app">Visit Website</a>
+  <a href="https://statoracle.org">Visit Website</a>
 </p>
 
 ---
