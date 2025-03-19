@@ -91,7 +91,7 @@ export default function Waitlist() {
               />
               <button
                 type="submit"
-                className="px-8 py-4 rounded-full backdrop-blur-sm bg-white/20 hover:bg-white/40 text-yellow-500 font-bold transition-all"
+                className="px-8 py-4 rounded-full backdrop-blur-sm hover:animate-pulse bg-white/20 hover:bg-white/40 text-yellow-500 font-bold transition-all"
               >
                 Join Waitlist
               </button>

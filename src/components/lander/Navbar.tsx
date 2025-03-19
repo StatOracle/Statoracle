@@ -10,7 +10,6 @@ export default function Navbar() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null)
 
   const navItems = [
-    { name: "Metrics", href: "#metrics" },
     { name: "Waitlist", href: "#waitlist" },
   ]
 
@@ -52,7 +51,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative px-3 py-2 text-gray-500 hover:text-amber-300 transition-colors"
+                className="relative px-5 py-1 text-gray-300 backdrop-blur-sm rounded-full hover:text-amber-300 transition-colors"
                 onMouseEnter={() => setHoveredLink(item.name)}
                 onMouseLeave={() => setHoveredLink(null)}
               >
@@ -104,22 +103,23 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="md:hidden fixed inset-0 bg-white/95 backdrop-blur-lg"
+              className="md:hidden fixed inset-0"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
+              onClick={() => setIsOpen(false)}
             >
-              <div className="flex flex-col items-center pt-24 space-y-6">
+              <div className="flex flex-col items-center pt-24 backdrop-blur-sm space-y-6">
                 {navItems.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="group text-2xl font-medium text-gray-800 hover:text-cyan-600 transition-colors"
+                    className="group text-2xl font-medium text-yellow-400 hover:text-yellow-600 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
-                    <span className="block h-[1px] bg-gray-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-300" />
+                    <span className="block h-[1px] bg-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-300" />
                   </Link>
                 ))}
               </div>
