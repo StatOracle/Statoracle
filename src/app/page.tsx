@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import Navbar from "@/components/lander/Navbar"
-import Metrics from "@/components/lander/Metrics"
 import Waitlist from "@/components/lander/Waitlist"
 import Footer from "@/components/lander/Footer"
 import Image from "next/image"
@@ -17,7 +16,7 @@ export default function Page() {
           <div className="absolute inset-0 bg-[url('/grid-overlay.png')] bg-cover opacity-10 mix-blend-overlay"></div>
 
           <div className="max-w-7xl mx-auto px-6 py-32 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid lg:grid-cols-2 md:gap-16 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -56,7 +55,7 @@ export default function Page() {
                 </motion.p>
 
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col sm:flex-row gap-4 md:space-x-0 space-y-2"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
@@ -81,14 +80,7 @@ export default function Page() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
                 >
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-primary" />
-                    ))}
-                  </div>
-                  <p className="text-white/80">
-                    Join <span className="font-medium text-white">500+</span> teams already on the waitlist
-                  </p>
+                  
                 </motion.div>
               </motion.div>
 
@@ -98,21 +90,21 @@ export default function Page() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="relative"
               >
-                <div className="relative aspect-[4/3] rounded-xl  bg-black overflow-hidden glass-card">
+                <div className="relative aspect-[4/3] rounded-xl hidden md:block bg-black overflow-hidden glass-card">
                 {/* TODO Replace with Dashboard Image */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  <div className="absolute inset-0 hidden md:block bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
-                  className="absolute -bottom-6 left-6 right-6 p-4 glass-card rounded-lg"
+                  className="absolute hidden md:block bottom-6 left-6 right-6 p-4 glass-card rounded-lg"
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <div className="text-sm font-medium">Performance Score</div>
-                      <div className="text-2xl font-bold">92.5%</div>
+                      <div className="text-sm font-medium"></div>
+                      <div className="text-2xl font-bold"></div>
                     </div>
                     <div className="w-24 h-24">{/* Add a circular progress indicator here if needed */}</div>
                   </div>
@@ -122,7 +114,6 @@ export default function Page() {
           </div>
         </section>
 
-        <Metrics />
         <Waitlist />
       </main>
       <Footer />
