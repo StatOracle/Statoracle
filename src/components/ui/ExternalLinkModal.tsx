@@ -8,7 +8,11 @@ type ExternalLinkModalProps = {
   onClose: () => void;
 };
 
-const ExternalLinkModal: FC<ExternalLinkModalProps> = ({ isOpen, url, onClose }) => {
+const ExternalLinkModal: FC<ExternalLinkModalProps> = ({
+  isOpen,
+  url,
+  onClose,
+}) => {
   if (!isOpen) return null;
 
   const handleConfirm = () => {
@@ -17,20 +21,20 @@ const ExternalLinkModal: FC<ExternalLinkModalProps> = ({ isOpen, url, onClose })
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-auto">
-        <h2 className="text-xl font-bold mb-4">Leave Site?</h2>
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
+      <div className="mx-auto max-w-sm rounded-lg bg-white p-6 shadow-lg">
+        <h2 className="mb-4 text-xl font-bold">Leave Site?</h2>
         <p className="mb-6">You are about to leave our site. Continue?</p>
         <div className="flex justify-end space-x-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 transition-colors"
+            className="rounded bg-gray-200 px-4 py-2 transition-colors hover:bg-gray-300"
           >
             Cancel
           </button>
           <button
             onClick={handleConfirm}
-            className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+            className="rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
           >
             Leave Site
           </button>

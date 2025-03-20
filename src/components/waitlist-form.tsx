@@ -78,8 +78,8 @@ export function WaitlistForm() {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">Join Our Waitlist</h2>
+    <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
+      <h2 className="mb-6 text-center text-2xl font-bold">Join Our Waitlist</h2>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -119,7 +119,11 @@ export function WaitlistForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="john.doe@example.com" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="john.doe@example.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -144,7 +148,7 @@ export function WaitlistForm() {
             control={form.control}
             name="includeSurvey"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <FormItem className="flex flex-row items-start space-y-0 space-x-3">
                 <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -154,13 +158,15 @@ export function WaitlistForm() {
                     }}
                   />
                 </FormControl>
-                <FormLabel>Help us improve by completing a short survey</FormLabel>
+                <FormLabel>
+                  Help us improve by completing a short survey
+                </FormLabel>
               </FormItem>
             )}
           />
 
           {showSurvey && (
-            <div className="space-y-4 pt-4 border-t border-gray-200">
+            <div className="space-y-4 border-t border-gray-200 pt-4">
               <h3 className="text-lg font-medium">Optional Survey</h3>
 
               <FormField
@@ -175,25 +181,31 @@ export function WaitlistForm() {
                         defaultValue={field.value}
                         className="flex flex-col space-y-1"
                       >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="social_media" />
                           </FormControl>
-                          <FormLabel className="font-normal">Social Media</FormLabel>
+                          <FormLabel className="font-normal">
+                            Social Media
+                          </FormLabel>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="friend" />
                           </FormControl>
-                          <FormLabel className="font-normal">Friend or Colleague</FormLabel>
+                          <FormLabel className="font-normal">
+                            Friend or Colleague
+                          </FormLabel>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="search" />
                           </FormControl>
-                          <FormLabel className="font-normal">Search Engine</FormLabel>
+                          <FormLabel className="font-normal">
+                            Search Engine
+                          </FormLabel>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="other" />
                           </FormControl>
@@ -217,25 +229,25 @@ export function WaitlistForm() {
                         defaultValue={field.value}
                         className="flex flex-col space-y-1"
                       >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="18-24" />
                           </FormControl>
                           <FormLabel className="font-normal">18-24</FormLabel>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="25-34" />
                           </FormControl>
                           <FormLabel className="font-normal">25-34</FormLabel>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="35-44" />
                           </FormControl>
                           <FormLabel className="font-normal">35-44</FormLabel>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-y-0 space-x-3">
                           <FormControl>
                             <RadioGroupItem value="45+" />
                           </FormControl>
@@ -262,7 +274,9 @@ export function WaitlistForm() {
             </div>
           )}
 
-          <Button type="submit" className="w-full">Join Waitlist</Button>
+          <Button type="submit" className="w-full">
+            Join Waitlist
+          </Button>
         </form>
       </Form>
     </div>

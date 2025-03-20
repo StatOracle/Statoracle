@@ -1,30 +1,32 @@
-import type React from "react"
-import "../styles/globals.css"
-import { Inter, Manrope } from "next/font/google"
-import type { Metadata } from "next"
-import { Providers } from "@/app/Providers"
+import type React from "react";
+import "../styles/globals.css";
+import { Inter, Manrope } from "next/font/google";
+import type { Metadata } from "next";
+import { Providers } from "@/app/Providers";
 import { ReactLenis } from "@/utils/lenis";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-})
+});
 
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
   display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: "StatOracle | AI-Powered Sports Analytics for Youth Teams",
   description:
     "StatOracle revolutionizes youth sports analytics with AI-powered insights. Join the waitlist to unlock game-changing performance metrics using computer vision and machine learning.",
-  keywords: "sports analytics, AI sports, computer vision, youth sports, performance metrics, sports technology",
+  keywords:
+    "sports analytics, AI sports, computer vision, youth sports, performance metrics, sports technology",
   openGraph: {
     title: "StatOracle | AI-Powered Sports Analytics",
-    description: "Revolutionizing youth sports with elite-level insights through AI and computer vision.",
+    description:
+      "Revolutionizing youth sports with elite-level insights through AI and computer vision.",
     url: "https://statoracle.com",
     siteName: "StatOracle",
     images: [
@@ -41,7 +43,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "StatOracle | AI-Powered Sports Analytics",
-    description: "Revolutionizing youth sports with elite-level insights through AI and computer vision.",
+    description:
+      "Revolutionizing youth sports with elite-level insights through AI and computer vision.",
     images: ["/og-image.jpg"],
     creator: "@statoracle",
   },
@@ -61,12 +64,12 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html
@@ -75,7 +78,7 @@ export default function RootLayout({
       className={`scroll-smooth ${inter.variable} ${manrope.variable}`}
     >
       <ReactLenis root>
-        <body className="bg-light font-sans text-dark">
+        <body className="bg-light text-dark font-sans">
           <Providers>{children}</Providers>
           {/* <Analytics /> */}
         </body>
