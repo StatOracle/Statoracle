@@ -30,12 +30,16 @@ export const DevLogTemplate = ({
         "We've improved our CV model's shot detection accuracy from 87% to 94% by implementing a new frame interpolation technique.",
       technicalDetails:
         "The new approach uses a dual-phase detection system: first identifying player positions through pose estimation, then applying temporal filtering to track ball trajectories across frames.",
-      codeSnippet: `// Example of our new approach
-const detectShots = async (videoFrames) => {
+      codeSnippet:
+`// Example of our new approach
+const detectShots = async (videoFrames, settings) => {
   const playerPositions = await poseEstimation(videoFrames);
-  const ballTrajectories = await trackBallMovement(videoFrames);
-
-  return analyzeTrajectories(ballTrajectories, playerPositions);
+  const ballTrajectories = await trackBallMovement(
+    videoFrames, settings
+  );
+  return analyzeTrajectories(
+    ballTrajectories, playerPositions
+  );
 };`,
       completionStatus: "Complete",
       contributors: ["Alex", "Maya", "Jordan"],

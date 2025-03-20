@@ -8,10 +8,14 @@ node_modules
 
 # testing
 coverage
+package-lock.json
 
 # next.js
 .next/
 out/
+build
+dist
+.vercel
 
 # production
 build
@@ -19,6 +23,7 @@ build
 # misc
 .DS_Store
 *.pem
+.react-email
 
 # debug
 npm-debug.log*
@@ -36,3 +41,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# turbo
+.turbo

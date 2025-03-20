@@ -1,6 +1,6 @@
 {
   "name": "statoracle-v2",
-  "version": "0.1.0",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
@@ -24,10 +24,10 @@
     "supabase:generate-seed": "pnpm dlx supabase db dump --data-only -f supabase/seed.sql",
     "supabase:push": "pnpm dlx supabase db push",
     "supabase:pull": "pnpm dlx supabase db pull",
-    "email": "pnpm run email:build",
-    "email:build": "email build",
-    "email:dev": "email dev",
-    "email:export": "email export"
+    "email": "pnpm run email:dev",
+    "email:build": "email build --dir src/emails",
+    "email:dev": "email dev --dir src/emails",
+    "email:export": "email export --dir src/emails"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
