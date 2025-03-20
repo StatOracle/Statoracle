@@ -155,7 +155,7 @@ python scripts/yolo_tracking.py --input video.mp4 --output output.mp4
 ### **Step 6: Access the App**
 
 Go to:
-🌍 **http://localhost:3000**
+🌍 **<http://localhost:3000>**
 
 ---
 
@@ -171,7 +171,7 @@ Go to:
 We’re looking for **engineers, sports analysts, and data scientists** to **join the revolution**.
 
 📩 **Contact Us:**
-📧 team@statoracle.ai
+📧 <team@statoracle.ai>
 🌍 [Visit Our Website](https://statoracle.ai)
 
 ---
