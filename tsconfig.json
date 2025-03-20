@@ -19,8 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@react-emails/*": ["src/emails/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
