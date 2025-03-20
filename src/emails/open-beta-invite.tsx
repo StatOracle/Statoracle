@@ -115,9 +115,7 @@ export const OpenBetaInviteTemplate = ({
           </Text>
 
           <Section style={styles.betaDateSection}>
-            <Text style={styles.betaDateLabel}>
-              {`Beta Testing Period`}
-            </Text>
+            <Text style={styles.betaDateLabel}>{`Beta Testing Period`}</Text>
             <Text style={styles.betaDate}>
               {`${betaStartDate} - ${betaEndDate}`}
             </Text>
@@ -133,9 +131,7 @@ export const OpenBetaInviteTemplate = ({
 
         {/* Main Content */}
         <Section style={styles.mainContent}>
-          <Text style={styles.paragraph}>
-            {`Hey ${firstName},`}
-          </Text>
+          <Text style={styles.paragraph}>{`Hey ${firstName},`}</Text>
 
           <Text style={styles.paragraph}>
             {`Remember when you signed up for our waitlist? Well, today's the day! Your patience has officially paid off. We're opening our doors to beta testers like you who are ready to bring youth and college sports into the analytics era.`}
@@ -164,9 +160,7 @@ export const OpenBetaInviteTemplate = ({
                   style={styles.featureIcon}
                 />
                 <Section style={styles.featureContent}>
-                  <Text style={styles.featureTitle}>
-                    {feature.title}
-                  </Text>
+                  <Text style={styles.featureTitle}>{feature.title}</Text>
                   <Text style={styles.featureDescription}>
                     {feature.description}
                   </Text>
@@ -185,9 +179,7 @@ export const OpenBetaInviteTemplate = ({
           <Section style={styles.stepsContainer}>
             <Section style={styles.step}>
               <Text style={styles.stepNumber}>{`1`}</Text>
-              <Text style={styles.stepTitle}>
-                {`Upload Your Game Footage`}
-              </Text>
+              <Text style={styles.stepTitle}>{`Upload Your Game Footage`}</Text>
               <Text style={styles.stepDescription}>
                 {`Simply upload your game footage through our secure platform. We accept most common video formats.`}
               </Text>
@@ -215,9 +207,7 @@ export const OpenBetaInviteTemplate = ({
 
             <Section style={styles.step}>
               <Text style={styles.stepNumber}>{`4`}</Text>
-              <Text style={styles.stepTitle}>
-                {`Implement and Improve`}
-              </Text>
+              <Text style={styles.stepTitle}>{`Implement and Improve`}</Text>
               <Text style={styles.stepDescription}>
                 {`Use our insights to adjust your strategies, improve player performance, and win more games.`}
               </Text>
@@ -240,27 +230,18 @@ export const OpenBetaInviteTemplate = ({
               <Section
                 key={index}
                 style={
-                  index === 0
-                    ? styles.pricingTier
-                    : styles.pricingTierFeatured
+                  index === 0 ? styles.pricingTier : styles.pricingTierFeatured
                 }
               >
-                <Text style={styles.pricingName}>
-                  {tier.name}
-                </Text>
-                <Text style={styles.pricingPrice}>
-                  {tier.price}
-                </Text>
+                <Text style={styles.pricingName}>{tier.name}</Text>
+                <Text style={styles.pricingPrice}>{tier.price}</Text>
                 <Text style={styles.pricingDescription}>
                   {tier.description}
                 </Text>
                 <Hr style={styles.pricingDivider} />
                 <Section style={styles.pricingFeatures}>
                   {tier.features.map((feature, featureIndex) => (
-                    <Text
-                      key={featureIndex}
-                      style={styles.pricingFeature}
-                    >
+                    <Text key={featureIndex} style={styles.pricingFeature}>
                       {`✓ ${feature}`}
                     </Text>
                   ))}
@@ -308,54 +289,36 @@ export const OpenBetaInviteTemplate = ({
 
         {/* Beta Timeline */}
         <Section style={styles.timelineSection}>
-          <Heading style={styles.sectionHeading}>
-            {`Beta Timeline`}
-          </Heading>
+          <Heading style={styles.sectionHeading}>{`Beta Timeline`}</Heading>
 
           <Section style={styles.timeline}>
             <Section style={styles.timelineItem}>
-              <Text style={styles.timelineDate}>
-                {`April 15, 2025`}
-              </Text>
-              <Text style={styles.timelineTitle}>
-                {`Beta Launch`}
-              </Text>
+              <Text style={styles.timelineDate}>{`April 15, 2025`}</Text>
+              <Text style={styles.timelineTitle}>{`Beta Launch`}</Text>
               <Text style={styles.timelineDescription}>
                 {`Open beta begins with core features available to all testers.`}
               </Text>
             </Section>
 
             <Section style={styles.timelineItem}>
-              <Text style={styles.timelineDate}>
-                {`May 1, 2025`}
-              </Text>
-              <Text style={styles.timelineTitle}>
-                {`Feature Update 1`}
-              </Text>
+              <Text style={styles.timelineDate}>{`May 1, 2025`}</Text>
+              <Text style={styles.timelineTitle}>{`Feature Update 1`}</Text>
               <Text style={styles.timelineDescription}>
                 {`Advanced opponent analysis and enhanced visualization tools released.`}
               </Text>
             </Section>
 
             <Section style={styles.timelineItem}>
-              <Text style={styles.timelineDate}>
-                {`May 15, 2025`}
-              </Text>
-              <Text style={styles.timelineTitle}>
-                {`Feature Update 2`}
-              </Text>
+              <Text style={styles.timelineDate}>{`May 15, 2025`}</Text>
+              <Text style={styles.timelineTitle}>{`Feature Update 2`}</Text>
               <Text style={styles.timelineDescription}>
                 {`Mobile app beta launch with on-the-go analytics access.`}
               </Text>
             </Section>
 
             <Section style={styles.timelineItem}>
-              <Text style={styles.timelineDate}>
-                {`June 15, 2025`}
-              </Text>
-              <Text style={styles.timelineTitle}>
-                {`Official Launch`}
-              </Text>
+              <Text style={styles.timelineDate}>{`June 15, 2025`}</Text>
+              <Text style={styles.timelineTitle}>{`Official Launch`}</Text>
               <Text style={styles.timelineDescription}>
                 {`Beta concludes and StatOracle officially launches with all features.`}
               </Text>
@@ -396,10 +359,7 @@ export const OpenBetaInviteTemplate = ({
               {`Privacy Policy`}
             </Link>{" "}
             |{" "}
-            <Link
-              href="https://statoracle.com/terms"
-              style={styles.footerLink}
-            >
+            <Link href="https://statoracle.com/terms" style={styles.footerLink}>
               {`Terms of Service`}
             </Link>{" "}
             |{" "}

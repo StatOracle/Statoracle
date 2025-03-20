@@ -16,7 +16,7 @@ export const waitlistEntries = pgTable("waitlist_entries", {
   lastName: varchar("last_name", { length: 100 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   phoneNumber: varchar("phone_number", { length: 20 }),
-  welcomeEmailSentAt: timestamp("welcome_email_sent_at", { mode: 'date' }),
+  welcomeEmailSentAt: timestamp("welcome_email_sent_at", { mode: "date" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
