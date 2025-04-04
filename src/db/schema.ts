@@ -17,21 +17,27 @@ export const waitlistEntries = pgTable("waitlist_entries", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   phoneNumber: varchar("phone_number", { length: 20 }),
   welcomeEmailSentAt: timestamp("welcome_email_sent_at", { mode: "date" }),
+  profession: varchar("profession").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // Survey information table
 export const surveys = pgTable("surveys", {
-  id: uuid("id").defaultRandom().primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   waitlistEntryId: uuid("waitlist_entry_id")
     .notNull()
     .references(() => waitlistEntries.id, { onDelete: "cascade" }),
   discoverySource: varchar("discovery_source", { length: 100 }),
   age: integer("age"),
   profession: varchar("profession", { length: 100 }),
+  sport: varchar("sport"),
+  teamLevel: varchar("team_level"),
+  analyticsExperience: varchar("analytics_experience"),
+  budgetRange: varchar("budget_range"),
+  primaryGoal: varchar("primary_goal"),
   additionalFeedback: text("additional_feedback"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 // Relations between tables
