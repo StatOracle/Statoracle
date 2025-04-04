@@ -50,7 +50,8 @@ const detectShots = async (videoFrames, settings) => {
         "Reduced processing time by 40% and memory usage by 35% when handling multiple concurrent video streams.",
       technicalDetails:
         "Implemented streaming processing with chunked data handling instead of loading entire videos into memory.",
-      codeSnippet: `// Before: ~2GB memory usage per video
+      codeSnippet:
+`// Before: ~2GB memory usage per video
 const results = await processVideo(fullVideoBuffer);
 
 // After: ~350MB peak memory usage

@@ -166,7 +166,7 @@ export default function Metrics() {
             {sportTabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => setActiveTab(tab.id as "tennis" | "soccer" | "basketball")}
                 className={`relative rounded-full px-6 py-2 text-sm font-medium transition-colors duration-300 ${
                   activeTab === tab.id
                     ? "text-black"

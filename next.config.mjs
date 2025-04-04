@@ -2,6 +2,7 @@
 
 /** @type {import('next').NextConfig} */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import withSvgr from "@svgr/webpack";
 
 const nextConfig = {
@@ -19,7 +20,7 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
     // serverActions: {
-    //   allowedOrigins: ["app.localhost:3000"],
+    //   allowedOrifgins: ["app.localhost:3000"],
     // },
     turbo: {
       rules: {
