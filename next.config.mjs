@@ -18,9 +18,6 @@ const nextConfig = {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
-    // serverActions: {
-    //   allowedOrigins: ["app.localhost:3000"],
-    // },
     turbo: {
       rules: {
         "*.svg": {
@@ -29,6 +26,15 @@ const nextConfig = {
         },
       },
     },
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: "/admin/:path*", // Match requests to /admin
+        destination: "/api/payload/:path*", // Forward them to the Payload API
+      },
+    ];
   },
 
   webpack(config) {
