@@ -1,11 +1,21 @@
-// next.config.mjs
+import { withPayload } from "@payloadcms/next/withPayload";
 
 /** @type {import('next').NextConfig} */
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import withSvgr from "@svgr/webpack";
-
 const nextConfig = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: {
+            icon: true,
+          },
+        },
+      ],
+    });
+    return config;
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -19,6 +29,7 @@ const nextConfig = {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
+    reactCompiler: false,
     // serverActions: {
     //   allowedOrifgins: ["app.localhost:3000"],
     // },
@@ -31,21 +42,8 @@ const nextConfig = {
       },
     },
   },
-
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: [
-        {
-          loader: "@svgr/webpack",
-          options: {
-            svgo: true, // Disable SVGO optimization if you encounter issues
-          },
-        },
-      ],
-    });
-    return config;
-  },
 };
 
-export default nextConfig;
+// Make sure you wrap your `nextConfig`
+// with the `withPayload` plugin
+export default withPayload(nextConfig);

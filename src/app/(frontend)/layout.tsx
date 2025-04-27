@@ -2,7 +2,7 @@ import type React from "react";
 import "../styles/globals.css";
 import { Inter, Manrope } from "next/font/google";
 import type { Metadata } from "next";
-import { Providers } from "@/app/Providers";
+import { Providers } from "@/app/(frontend)/Providers";
 import { ReactLenis } from "@/utils/lenis";
 
 const inter = Inter({
