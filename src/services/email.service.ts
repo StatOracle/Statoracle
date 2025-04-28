@@ -1,27 +1,15 @@
-import { Resend } from "resend";
-import { WelcomeEmail } from "@/emails/welcome";
-import { WaitlistConfirmationTemplate } from "@/emails/waitlist-confirmation";
-import { NewsletterTemplate } from "@/emails/newsletter";
-import { FeatureAnnouncementTemplate } from "@/emails/feature-announcement";
-import { OpenBetaInviteTemplate } from "@/emails/open-beta-invite";
-import { ClosedAlphaInviteTemplate } from "@/emails/closed-alpha-invite";
-import { DevLogTemplate } from "@/emails/dev-log";
 import { getPayloadClient } from "@/payload/payload-client";
-import { EmailTemplate } from "@/types/email";
+import { EmailTemplate, TemplateType } from "@/types/email";
+import * as Sentry from "@sentry/nextjs";
+import superjson from "superjson";
+import {
+  getEmailComponent,
+  validateTemplateParams,
+} from "@/utils/email-template-adapter";
+import { initSentry } from "@/utils/sentry";
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// Define email template types
-type TemplateType =
-  | "welcome"
-  | "waitlist-confirmation"
-  | "newsletter"
-  | "feature-announcement"
-  | "open-beta-invite"
-  | "closed-alpha-invite"
-  | "dev-log"
-  | "custom";
+// Initialize Sentry
+initSentry();
 
 // Interface for email sending options
 interface SendEmailOptions {
@@ -36,7 +24,7 @@ interface SendEmailOptions {
 }
 
 /**
- * Send an email using Resend and React Email
+ * Send an email using Payload's email adapter
  */
 export async function sendEmail({
   to,
@@ -49,21 +37,69 @@ export async function sendEmail({
   recipientName,
 }: SendEmailOptions) {
   try {
+    // Get the Payload client
+    const payload = await getPayloadClient();
+
+    // Validate template parameters
+    if (!validateTemplateParams(templateType, templateData)) {
+      throw new Error(
+        `Invalid template parameters for template type: ${templateType}`,
+      );
+    }
+
     // Get the appropriate React component based on template type
     const emailComponent = getEmailComponent(templateType, templateData);
 
-    // Send the email using Resend
-    const { data, error } = await resend.emails.send({
-      from,
-      to,
-      subject,
-      reply_to: replyTo,
-      react: emailComponent,
+    // Create a transaction to track this in Sentry
+    const transaction = Sentry.startTransaction({
+      name: "sendEmail",
+      data: {
+        templateType,
+        to,
+        subject,
+        campaignId,
+      },
     });
 
-    if (error) {
+    try {
+      // Send the email using Payload's email adapter
+      const result = await payload.sendEmail({
+        from: from,
+        to: to,
+        subject: subject,
+        replyTo: replyTo,
+        html: emailComponent,
+      });
+
+      // Log the successful email send if we have a campaign ID
+      if (campaignId) {
+        await logEmailSend({
+          campaignId,
+          recipient: to,
+          recipientName,
+          subject,
+          status: "sent",
+          resendId: result?.id, // Resend adapter returns an ID
+        });
+      }
+
+      transaction.setStatus("ok");
+      return { success: true, data: result };
+    } catch (error) {
+      // Log the error in Sentry
+      Sentry.captureException(error, {
+        tags: {
+          emailType: templateType,
+          campaignId,
+        },
+        extra: {
+          recipient: to,
+          subject,
+        },
+      });
+
       console.error("Error sending email:", error);
-      
+
       // Log the error in the database if we have a campaign ID
       if (campaignId) {
         await logEmailSend({
@@ -72,29 +108,30 @@ export async function sendEmail({
           recipientName,
           subject,
           status: "failed",
-          errorDetails: error.message,
+          errorDetails: error instanceof Error ? error.message : String(error),
         });
       }
-      
+
+      transaction.setStatus("error");
       return { success: false, error };
+    } finally {
+      transaction.finish();
     }
-
-    // Log the successful email send if we have a campaign ID
-    if (campaignId) {
-      await logEmailSend({
-        campaignId,
-        recipient: to,
-        recipientName,
-        subject,
-        status: "sent",
-        resendId: data?.id,
-      });
-    }
-
-    return { success: true, data };
   } catch (error) {
+    // Capture the error in Sentry
+    Sentry.captureException(error, {
+      tags: {
+        emailType: templateType,
+        campaignId,
+      },
+      extra: {
+        recipient: to,
+        subject,
+      },
+    });
+
     console.error("Error in sendEmail:", error);
-    
+
     // Log the error in the database if we have a campaign ID
     if (campaignId) {
       await logEmailSend({
@@ -106,38 +143,12 @@ export async function sendEmail({
         errorDetails: error instanceof Error ? error.message : String(error),
       });
     }
-    
+
     return { success: false, error };
   }
 }
 
-/**
- * Get the appropriate React component for the email template
- */
-function getEmailComponent(templateType: TemplateType, data: Record<string, any>) {
-  switch (templateType) {
-    case "welcome":
-      return <WelcomeEmail {...data} />;
-    case "waitlist-confirmation":
-      return <WaitlistConfirmationTemplate {...data} />;
-    case "newsletter":
-      return <NewsletterTemplate {...data} />;
-    case "feature-announcement":
-      return <FeatureAnnouncementTemplate {...data} />;
-    case "open-beta-invite":
-      return <OpenBetaInviteTemplate {...data} />;
-    case "closed-alpha-invite":
-      return <ClosedAlphaInviteTemplate {...data} />;
-    case "dev-log":
-      return <DevLogTemplate {...data} />;
-    case "custom":
-      // For custom templates, we'd need to handle differently
-      // This is a placeholder
-      return <div dangerouslySetInnerHTML={{ __html: data.html }} />;
-    default:
-      throw new Error(`Unsupported template type: ${templateType}`);
-  }
-}
+// The getEmailComponent function is now imported from utils/email-template-adapter
 
 /**
  * Log an email send in the database
@@ -162,12 +173,21 @@ async function logEmailSend({
   errorDetails,
 }: LogEmailOptions) {
   try {
-    const payload = await getPayloadClient();
-    
-    // Create a record in the sent-emails collection
-    await payload.create({
-      collection: "sent-emails",
+    // Create a transaction to track this in Sentry
+    const transaction = Sentry.startTransaction({
+      name: "logEmailSend",
       data: {
+        campaignId,
+        recipient,
+        status,
+      },
+    });
+
+    try {
+      const payload = await getPayloadClient();
+
+      // Serialize the data with SuperJSON for type safety
+      const emailData = superjson.stringify({
         campaign: campaignId,
         recipient,
         recipientName,
@@ -176,29 +196,75 @@ async function logEmailSend({
         sentAt: new Date(),
         resendId,
         errorDetails,
+      });
+
+      const parsedData = superjson.parse(emailData);
+
+      // Create a record in the sent-emails collection
+      await payload.create({
+        collection: "sent-emails",
+        data: parsedData,
+      });
+
+      // Update the campaign's sent count
+      const campaign = await payload.findByID({
+        collection: "email-campaigns",
+        id: campaignId,
+      });
+
+      if (campaign) {
+        // Serialize the update data with SuperJSON for type safety
+        const updateData = superjson.stringify({
+          sentCount: (campaign.sentCount || 0) + 1,
+          status: "sending",
+        });
+
+        const parsedUpdateData = superjson.parse(updateData);
+
+        await payload.update({
+          collection: "email-campaigns",
+          id: campaignId,
+          data: parsedUpdateData,
+        });
+      }
+
+      transaction.setStatus("ok");
+      return true;
+    } catch (error) {
+      // Log the error in Sentry
+      Sentry.captureException(error, {
+        tags: {
+          operation: "logEmailSend",
+          campaignId,
+        },
+        extra: {
+          recipient,
+          subject,
+          status,
+        },
+      });
+
+      console.error("Error logging email send:", error);
+      transaction.setStatus("error");
+      return false;
+    } finally {
+      transaction.finish();
+    }
+  } catch (error) {
+    // Capture the error in Sentry
+    Sentry.captureException(error, {
+      tags: {
+        operation: "logEmailSend",
+        campaignId,
+      },
+      extra: {
+        recipient,
+        subject,
+        status,
       },
     });
 
-    // Update the campaign's sent count
-    const campaign = await payload.findByID({
-      collection: "email-campaigns",
-      id: campaignId,
-    });
-
-    if (campaign) {
-      await payload.update({
-        collection: "email-campaigns",
-        id: campaignId,
-        data: {
-          sentCount: (campaign.sentCount || 0) + 1,
-          status: "sending",
-        },
-      });
-    }
-
-    return true;
-  } catch (error) {
-    console.error("Error logging email send:", error);
+    console.error("Error in logEmailSend:", error);
     return false;
   }
 }
@@ -207,9 +273,17 @@ async function logEmailSend({
  * Send a campaign to all recipients
  */
 export async function sendCampaign(campaignId: string) {
+  // Create a transaction to track this in Sentry
+  const transaction = Sentry.startTransaction({
+    name: "sendCampaign",
+    data: {
+      campaignId,
+    },
+  });
+
   try {
     const payload = await getPayloadClient();
-    
+
     // Get the campaign
     const campaign = await payload.findByID({
       collection: "email-campaigns",
@@ -221,14 +295,16 @@ export async function sendCampaign(campaignId: string) {
       throw new Error(`Campaign not found: ${campaignId}`);
     }
 
-    // Update campaign status to sending
+    // Update campaign status to sending using SuperJSON for type safety
+    const updateData = superjson.stringify({
+      status: "sending",
+      sentAt: new Date(),
+    });
+
     await payload.update({
       collection: "email-campaigns",
       id: campaignId,
-      data: {
-        status: "sending",
-        sentAt: new Date(),
-      },
+      data: superjson.parse(updateData),
     });
 
     // Get the template
@@ -239,7 +315,8 @@ export async function sendCampaign(campaignId: string) {
     }
 
     // Get the recipients based on audience type
-    let recipients: { email: string; firstName?: string; lastName?: string }[] = [];
+    let recipients: { email: string; firstName?: string; lastName?: string }[] =
+      [];
 
     switch (campaign.audience) {
       case "all-waitlist":
@@ -248,7 +325,7 @@ export async function sendCampaign(campaignId: string) {
           collection: "waitlist-entries",
           limit: 1000, // Adjust as needed
         });
-        
+
         recipients = waitlistEntries.docs.map((entry) => ({
           email: entry.email,
           firstName: entry.firstName,
@@ -259,16 +336,16 @@ export async function sendCampaign(campaignId: string) {
       case "specific-users":
         // Get specific users from the campaign
         if (Array.isArray(campaign.specificUsers)) {
-          const userIds = campaign.specificUsers.map((user) => 
-            typeof user === "string" ? user : user.id
+          const userIds = campaign.specificUsers.map((user) =>
+            typeof user === "string" ? user : user.id,
           );
-          
+
           for (const userId of userIds) {
             const user = await payload.findByID({
               collection: "waitlist-entries",
               id: userId,
             });
-            
+
             if (user) {
               recipients.push({
                 email: user.email,
@@ -295,17 +372,20 @@ export async function sendCampaign(campaignId: string) {
         throw new Error(`Unsupported audience type: ${campaign.audience}`);
     }
 
+    // Add recipient count to Sentry transaction
+    transaction.setData("recipientCount", recipients.length);
+
     // Send emails to all recipients
     let successCount = 0;
     let failureCount = 0;
 
     for (const recipient of recipients) {
       // Merge campaign template variables with recipient data
-      const templateData = {
+      const templateData = superjson.stringify({
         ...campaign.templateVariables,
         firstName: recipient.firstName,
         lastName: recipient.lastName,
-      };
+      });
 
       // Send the email
       const result = await sendEmail({
@@ -314,9 +394,9 @@ export async function sendCampaign(campaignId: string) {
         from: `${template.fromName} <${template.fromEmail}>`,
         replyTo: template.replyToEmail,
         templateType: template.templateType as TemplateType,
-        templateData,
+        templateData: superjson.parse(templateData),
         campaignId,
-        recipientName: recipient.firstName 
+        recipientName: recipient.firstName
           ? `${recipient.firstName} ${recipient.lastName || ""}`.trim()
           : undefined,
       });
@@ -332,17 +412,27 @@ export async function sendCampaign(campaignId: string) {
     }
 
     // Update campaign status
-    const finalStatus = failureCount === recipients.length ? "failed" : 
-                        failureCount > 0 ? "partial" : "sent";
-    
+    const finalStatus =
+      failureCount === recipients.length
+        ? "failed"
+        : failureCount > 0
+          ? "partial"
+          : "sent";
+
+    const finalUpdateData = superjson.stringify({
+      status: finalStatus,
+      sentCount: successCount,
+    });
+
     await payload.update({
       collection: "email-campaigns",
       id: campaignId,
-      data: {
-        status: finalStatus,
-        sentCount: successCount,
-      },
+      data: superjson.parse(finalUpdateData),
     });
+
+    transaction.setStatus("ok");
+    transaction.setData("successCount", successCount);
+    transaction.setData("failureCount", failureCount);
 
     return {
       success: true,
@@ -351,19 +441,38 @@ export async function sendCampaign(campaignId: string) {
       failureCount,
     };
   } catch (error) {
-    console.error("Error sending campaign:", error);
-    
-    // Update campaign status to failed
-    const payload = await getPayloadClient();
-    await payload.update({
-      collection: "email-campaigns",
-      id: campaignId,
-      data: {
-        status: "failed",
-        errorDetails: error instanceof Error ? error.message : String(error),
+    // Log the error in Sentry
+    Sentry.captureException(error, {
+      tags: {
+        operation: "sendCampaign",
+        campaignId,
       },
     });
-    
+
+    console.error("Error sending campaign:", error);
+
+    // Update campaign status to failed
+    try {
+      const payload = await getPayloadClient();
+
+      const errorUpdateData = superjson.stringify({
+        status: "failed",
+        errorDetails: error instanceof Error ? error.message : String(error),
+      });
+
+      await payload.update({
+        collection: "email-campaigns",
+        id: campaignId,
+        data: superjson.parse(errorUpdateData),
+      });
+    } catch (updateError) {
+      console.error("Error updating campaign status:", updateError);
+      Sentry.captureException(updateError);
+    }
+
+    transaction.setStatus("error");
     return { success: false, error };
+  } finally {
+    transaction.finish();
   }
 }

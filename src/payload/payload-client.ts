@@ -1,5 +1,5 @@
 import { getPayload } from "@payloadcms/next-payload";
-import config from "./payload.config";
+import config from "payload.config";
 
 // This is a singleton to ensure we only instantiate Payload once
 export const getPayloadClient = async () => {
