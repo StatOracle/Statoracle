@@ -15,3 +15,19 @@ Sentry.init({
 // This export will instrument router navigations, and is only relevant if you enable tracing.
 // `captureRouterTransitionStart` is available from SDK version 9.12.0 onwards
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
+
+
+/*
+Vercel docs:
+// Set up performance monitoring
+performance.mark('app-init');
+
+// Initialize analytics
+console.log('Analytics initialized');
+
+// Set up error tracking
+window.addEventListener('error', (event) => {
+  // Send to your error tracking service
+  reportError(event.error);
+});
+*/

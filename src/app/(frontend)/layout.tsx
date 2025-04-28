@@ -1,5 +1,5 @@
 import type React from "react";
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import { Inter, Manrope } from "next/font/google";
 import type { Metadata } from "next";
 import { Providers } from "@/app/(frontend)/Providers";

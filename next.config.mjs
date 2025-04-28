@@ -34,12 +34,12 @@ const nextConfig = {
     // serverActions: {
     //   allowedOrifgins: ["app.localhost:3000"],
     // },
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
+  },
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
       },
     },
   },

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/use-toast";
-import { createClient } from "@/utils/supabase/server";
 import { useState } from "react";
 
 export default function Waitlist() {
